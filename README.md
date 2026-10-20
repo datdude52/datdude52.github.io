@@ -24,6 +24,7 @@ Open http://localhost:8000. Drop `--drafts` to see only what will go live.
 | Add a project | `python scripts/new_project.py "Project Name" --from "path/to/photos"` |
 | Add a video | `python scripts/prepare_video.py "IMG_1234.MOV" content/projects/<slug>/images/demo` |
 | Change fonts | Edit `fonts` in `content/site.json`, then run `python scripts/fetch_fonts.py` |
+| Refresh the ARC-001 scan data | `python scripts/export_scan.py` (reads the Sonar Scanner CSVs, writes `scan.json`) |
 
 ## Where content lives
 
@@ -44,6 +45,8 @@ content/
 ```jsonc
 {
   "title": "…",
+  "short_title": "…",             // optional; used in lists, the sheet, and the page heading
+  "sheet": ["images/cover.jpg"], // optional; up to five pictures for the home contact sheet
   "summary": "One or two sentences under the title, in first person",
   "result": "One sentence with a real number, shown in project lists (no bold)",
   "dates": "Summer 2026 – Present",

@@ -1,5 +1,11 @@
 {
   "title": "ARC-001: Ultrasonic vs. Time-of-Flight Sensor Characterization",
+  "short_title": "ARC-001: Ultrasonic vs. Time-of-Flight",
+  "sheet": [
+    "images/cover.jpg",
+    "images/polar-overlay.png",
+    "images/resolution-ladder.png"
+  ],
   "summary": "I designed and ran a servo-swept test rig to measure exactly how an ultrasonic sensor and a time-of-flight sensor differ when they look at the same scene.",
   "result": "Compared two rangefinders against a six-object ground-truth scene and measured a 4.0× difference in angular resolution across 9,720 logged readings.",
   "dates": "Summer 2026 – Present",

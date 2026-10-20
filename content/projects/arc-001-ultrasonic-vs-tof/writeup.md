@@ -2,6 +2,8 @@
 
 This project started as a problem in ARC-000, my first scanning rangefinder. The HC-SR04 ultrasonic sensor on that build drew objects much wider than they actually were, and switching to a VL53L1X time-of-flight sensor fixed the scans. Instead of moving on, I decided to characterize both sensors properly and find out exactly how and why they differ.
 
+![Radar-style plot from the ARC-000 ultrasonic scanner showing broad arcs instead of distinct objects.](images/arc-000-sweep.png "A sweep from ARC-000, the scanner that started this project. The ultrasonic sensor drew each object as a wide arc.")
+
 ## Test rig
 
 I designed a printed fixture that mounts both sensors on a single servo, with the time-of-flight sensor directly above the ultrasonic transducers. Mounting them together means every sample is a paired measurement of the same scene at the same moment, so any difference in the data comes from the sensors and not from the setup.
@@ -11,6 +13,10 @@ I placed six objects between 264 and 527 mm from the sensor, including flat, rot
 Before final collection, I ran dry runs against that ground truth and found and corrected 12 firmware and pipeline defects. Two of the most important were a silent −38 mm bias in the time-of-flight readings and a shared timeout that cut the ultrasonic listening range from 1,500 to 1,114 mm. I also replaced an earlier screenshot-only test round with structured logging, which produced 9,720 rows across 20 sweeps with none rejected.
 
 ![Two plots of the test scene seen from above. The time-of-flight returns trace the outline of each object, while the ultrasonic returns form wide arcs that pass between the objects.](images/polar-overlay.png "Every valid return from all 20 sweeps, plotted over the measured object outlines. The time-of-flight sensor traces each object, while the ultrasonic sensor smears its returns into arcs.")
+
+Drag the scan angle below to see what each sensor read at that angle, next to the ray-cast ground truth.
+
+[[scan]]
 
 ## Results
 

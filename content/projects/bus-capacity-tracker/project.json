@@ -1,5 +1,12 @@
 {
   "title": "Bus Capacity Tracking System",
+  "sheet": [
+    "images/cover.jpg",
+    "images/display-demo.mp4",
+    "images/transmitter.jpg",
+    "images/display-housing-cad.png",
+    "images/transmitter-electronics.jpg"
+  ],
   "summary": "As design and manufacturing lead, I helped build an Arduino-driven infrared sensing system that counts riders as they board and shows the bus's occupancy on a display.",
   "result": "Reached 98% detection accuracy through structured verification testing, and won the section best project award.",
   "dates": "Spring 2025",

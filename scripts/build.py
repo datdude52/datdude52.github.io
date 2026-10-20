@@ -16,6 +16,7 @@ import hashlib
 import html
 import http.server
 import json
+import math
 import re
 import shutil
 import subprocess
@@ -158,7 +159,7 @@ def block(url: str, label: str, root: str = "", kind: str = "", attrs: str = "")
 
 
 def page(site: dict, *, title: str, description: str, content: str, root: str, current: str = "",
-         og_type: str = "website", og_image: str = "", path: str = "", noindex: bool = False) -> str:
+         og_type: str = "website", og_image: str = "", path: str = "", noindex: bool = False, scripts: str = "") -> str:
     base = site.get("base_url", "").rstrip("/")
     social = []
     if base and not noindex:
@@ -179,6 +180,7 @@ def page(site: dict, *, title: str, description: str, content: str, root: str, c
         "root": root, "content": content, "body_class": f"page-{current}" if current else "",
         "og_type": og_type, "social": "\n  ".join(social), "preload": preload, "nav": nav,
         "robots": '<meta name="robots" content="noindex">' if noindex else "",
+        "scripts": scripts,
         "year": str(dt.date.today().year),
         "updated": dt.date.today().strftime("%B %Y"),
         # Changes whenever the stylesheet does, so browsers never keep an old copy after a deploy.
@@ -201,7 +203,7 @@ def figure(media, *, alt: str, caption: str, num: int, sizes: str, prefix: str =
             marks.append(f'<span class="callout__dot" style="left:{px}%;top:{py}%">{i}</span>'
                          f'<span class="callout__label callout__label--{side}" style="left:{lx}%;top:{ly}%">{esc(c["label"])}</span>')
         overlay = (f'<svg class="callout__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">'
-                   f'{"".join(lines)}</svg><span aria-hidden="true">{"".join(marks)}</span>')
+                   f'{"".join(lines)}</svg><span class="callout__marks" aria-hidden="true">{"".join(marks)}</span>')
         key = '<ol class="callout__key">' + "".join(f"<li>{esc(c['label'])}</li>" for c in callouts) + "</ol>"
         cls += " fig--annotated"
     cap = (f'<figcaption><span class="fig__num">Fig. {num}</span> {md.inline(caption)}{key}</figcaption>'
@@ -211,8 +213,87 @@ def figure(media, *, alt: str, caption: str, num: int, sizes: str, prefix: str =
                 f' width="{media["w"]}" height="{media["h"]}" aria-label="{esc(alt)}">'
                 f'<source src="{prefix}{esc(media["src"])}" type="video/mp4"></video>')
         return f'<figure class="{cls}"><div class="fig__media">{body}</div>{cap}</figure>'
+    pic = media.img(alt, sizes, prefix, eager)
+    if "fig--cover" in cls:  # the cover opens like a shutter on load (style.css); callouts sit outside the clip
+        pic = f'<span class="fig__shutter">{pic}</span>'
     return (f'<figure class="{cls}"><a class="fig__media" href="{prefix}{esc(media.rel)}">'
-            f'{media.img(alt, sizes, prefix, eager)}{overlay}</a>{cap}</figure>')
+            f'{pic}{overlay}</a>{cap}</figure>')
+
+
+SCAN_FILE = CONTENT / "projects" / "arc-001-ultrasonic-vs-tof" / "scan.json"
+SCAN_MAX = 700        # mm plotted; readings past the scene are reported in words only
+SCAN_CONE = 18        # degrees either side of centre, as in the ray-cast model's ultrasonic beam
+
+
+def scan_sentence(a: dict) -> str:
+    """The readout under the scan. assets/js/scan.js writes the same sentence for each angle."""
+    def read(v, name):
+        return f"the {name} sensor read {v} mm" if v is not None else f"the {name} sensor had no return"
+    s = f"At {round(a['deg'])}°, {read(a['tof'], 'time-of-flight')} and {read(a['us'], 'ultrasonic')}. "
+    if a["ray"] is not None:
+        s += f"The object on the beam's center line is {a['ray']} mm away"
+        s += f", and the nearest surface inside the ultrasonic beam is {a['cone']} mm away." if a["cone"] is not None else "."
+    elif a["cone"] is not None:
+        s += f"No object sits on the beam's center line. The nearest surface inside the ultrasonic beam is {a['cone']} mm away."
+    return s
+
+
+def scan_widget(root: str, default_deg: float = 158.4) -> str:
+    """ARC-001's one live thing: drag the scan angle and read what each sensor saw at that angle.
+
+    The SVG and the sentence are rendered here for a chosen angle, so the figure is complete without
+    JavaScript; scan.js only reveals the slider and moves the beam."""
+    if not SCAN_FILE.exists():
+        return ""
+    d = json.loads(SCAN_FILE.read_text(encoding="utf-8"))
+    angles = d["angles"]
+    idx = min(range(len(angles)), key=lambda i: abs(angles[i]["deg"] - default_deg))
+    a = angles[idx]
+
+    def pt(r, deg):
+        t = math.radians(deg)
+        return f"{r * math.cos(t):.0f},{-r * math.sin(t):.0f}"
+
+    scene = "".join(f'<polygon class="scan__obj" points="{" ".join(f"{x},{-y}" for x, y in p)}"/>' for p in d["polys"])
+    scene += "".join(f'<circle class="scan__obj" cx="{x}" cy="{-y}" r="{r}"/>' for x, y, r in d["circles"])
+    trace = "".join(f'<circle class="scan__dot scan__dot--{k}" r="6" cx="{pt(v[k], v["deg"]).split(",")[0]}" '
+                    f'cy="{pt(v[k], v["deg"]).split(",")[1]}"/>'
+                    for v in angles for k in ("tof", "us") if v[k] is not None and v[k] <= SCAN_MAX)
+    cone = (f'<path class="scan__cone" d="M0,0 L{SCAN_MAX * math.cos(math.radians(SCAN_CONE)):.0f},'
+            f'{-SCAN_MAX * math.sin(math.radians(SCAN_CONE)):.0f} A{SCAN_MAX},{SCAN_MAX} 0 0,1 '
+            f'{SCAN_MAX * math.cos(math.radians(SCAN_CONE)):.0f},{SCAN_MAX * math.sin(math.radians(SCAN_CONE)):.0f} Z"/>')
+
+    def mark(cls, v, r):
+        shown = v is not None and v <= SCAN_MAX
+        return f'<circle class="{cls}" r="{r}" cx="{v if shown else 0}" cy="0"{"" if shown else " hidden"}/>'
+
+    beam = (f'<g class="scan__beam" transform="rotate({-a["deg"]})">{cone}'
+            f'<line class="scan__ray" x1="0" y1="0" x2="{SCAN_MAX}" y2="0"/>'
+            f'{mark("scan__truth", a["ray"], 14)}{mark("scan__hit scan__hit--us", a["us"], 13)}'
+            f'{mark("scan__hit scan__hit--tof", a["tof"], 13)}</g>')
+    svg = (f'<svg class="scan__plot" viewBox="-580 -640 1160 680" role="img" '
+           f'aria-label="Top view of the six-object test scene with every reading from both sensors and the beam at the chosen angle.">'
+           f'{scene}{trace}{beam}<path class="scan__sensor" d="M0,-18 L16,12 L-16,12 Z"/></svg>')
+    data = json.dumps(angles, separators=(",", ":"))
+    return f"""
+      <figure class="scan" data-scan>
+        {svg}
+        <div class="scan__controls" hidden>
+          <label for="scan-angle">Scan angle <output for="scan-angle">{round(a['deg'])}°</output></label>
+          <input id="scan-angle" type="range" min="0" max="{len(angles) - 1}" step="1" value="{idx}">
+        </div>
+        <p class="scan__readout" aria-live="polite">{esc(scan_sentence(a))}</p>
+        <figcaption><span class="scan__key scan__key--tof">Time-of-flight</span>
+          <span class="scan__key scan__key--us">Ultrasonic</span>
+          <span class="scan__key scan__key--truth">Object on the center line</span>
+          Each dot is the median of every sample at that angle in one sweep direction. The shaded wedge is the ultrasonic beam.</figcaption>
+        <script type="application/json" class="scan__data">{data}</script>
+      </figure>
+      <script src="{root}assets/js/scan.js" defer></script>"""
+
+
+def short(p: dict) -> str:
+    return p.get("short_title") or p["title"]
 
 
 def project_row(p: dict, images: dict, root: str) -> str:
@@ -229,68 +310,108 @@ def project_row(p: dict, images: dict, root: str) -> str:
         <li class="row{" row--text" if not cover else ""}">
           {thumb}
           <div class="row__text">
-            <p class="row__dates">{esc(p.get("dates", ""))} {status}</p>
-            <h3><a class="row__link" href="{url}">{esc(p["title"])}</a></h3>
+            <h3><a class="row__link" href="{url}">{esc(short(p))}</a></h3>
             <p>{esc(p.get("result") or p.get("summary", ""))}</p>
           </div>
+          <p class="row__dates">{esc(p.get("dates", ""))} {status}</p>
         </li>"""
 
 
 def project_list(projects: list, images: dict, root: str, heading_level: str = "h2") -> str:
     out = []
     for kind, heading in (("hardware", "Engineering projects"), ("software", "Software")):
-        rows = [project_row(p, images, root) for p in projects if p.get("kind", "hardware") == kind]
+        rows = [project_row(p, images, root).replace('<li class="row', f'<li style="--i:{i}" class="row', 1)
+                for i, p in enumerate(q for q in projects if q.get("kind", "hardware") == kind)]
         if rows:
             out.append(f'<section class="group"><{heading_level}>{heading}</{heading_level}>'
                        f'<ol class="rows">{"".join(rows)}</ol></section>')
     return "\n".join(out)
 
 
-def render_home(site: dict, projects: list, images: dict, about_img=None) -> str:
+SHEET_H = 160          # frame height in the home contact sheet, px (CSS sets the same)
+SHEET_FRAMES = 5       # pictures per project in the sheet
+
+
+def sheet_frames(p: dict, images: dict, videos: dict) -> list:
+    """Pictures for a project's run in the contact sheet: "sheet" in project.json, else cover, figures, gallery."""
+    picks = p.get("sheet") or ([p.get("cover")] + re.findall(r"\]\((images/[^)\s]+)", p["body"])
+                               + [g["src"] for g in p.get("gallery", [])])
+    out, seen = [], set()
+    for src in picks:
+        if src and src not in seen and ((p["slug"], src) in images or (p["slug"], src) in videos):
+            seen.add(src)
+            out.append(src)
+    return out[:SHEET_FRAMES]
+
+
+def contact_sheet(projects: list, images: dict, videos: dict) -> str:
+    """Every published project as a run: a text cell with its title and result, then its pictures at one height."""
+    cells = []
+    for p in projects:
+        if p.get("status") == "draft":
+            continue
+        url = f'projects/{p["slug"]}/index.html'
+        prefix = f'projects/{p["slug"]}/'
+        cells.append(f'<div class="cs__cell" style="--i:{len(cells)}"><h3><a href="{url}">{esc(short(p))}</a></h3>'
+                     f'<p>{esc(p.get("result") or p.get("summary", ""))}</p></div>')
+        for src in sheet_frames(p, images, videos):
+            v = videos.get((p["slug"], src))
+            if v:  # the one moving picture: a short muted loop, paused for reduced motion by site.js
+                w = round(SHEET_H * v.get("sheet_w", v["w"]) / v.get("sheet_h", v["h"]))
+                media = (f'<video src="{prefix}{esc(v.get("sheet_src", v["src"]))}" poster="{prefix}{esc(v.get("sheet_poster", v["poster"]))}" '
+                         f'width="{w}" height="{SHEET_H}" muted loop playsinline preload="none" data-loop></video>')
+            else:
+                im = images[(p["slug"], src)]
+                w = round(SHEET_H * im.w / im.h)
+                media = im.img("", f"{w}px", prefix)
+            cells.append(f'<a class="cs__frame" href="{url}" tabindex="-1" aria-hidden="true" style="--i:{len(cells)}">{media}</a>')
+    return f'<div class="cs">{"".join(cells)}</div>'
+
+
+def render_home(site: dict, projects: list, images: dict, videos: dict) -> str:
     intro = "".join(f"<p>{md.inline(p)}</p>" for p in site["home"]["intro"])
     # Degree, availability, location and work authorization: what a recruiter screens for first.
     facts = "".join(f"<div><dt>{esc(k)}</dt><dd>{esc(v)}</dd></div>" for k, v in site["home"].get("facts", []))
-    photo = (f'<div class="hero__photo">{about_img.img(site["about"].get("photo_alt", ""), "(min-width: 900px) 320px, 0px", "about/", True)}</div>'
-             if about_img else "")
+    # Direction "The contact sheet" (docs/DESIGN.md, round 4): the name at display size, the facts in short
+    # blocks, and every project's pictures on one sheet inside the first screen.
     hero = f"""
     <section class="hero">
-      <div class="wrap hero__grid">
-        <div>
+      <div class="hero__top">
         <h1>{esc(site["name"])}</h1>
-        <div class="hero__intro">{intro}</div>
-        {f'<dl class="facts">{facts}</dl>' if facts else ""}
+        <div class="hero__cols">
+          <div class="hero__intro">{intro}</div>
+          {f'<dl class="facts">{facts}</dl>' if facts else ""}
+        </div>
         <div class="blocks">
           {block("projects/index.html", "View projects", "", "light")}
           {block("resume/index.html", "Resume", "", "outline-light")}
           {block("about/index.html", "About me", "", "outline-light")}
         </div>
-        </div>
-        {photo}
       </div>
+      {contact_sheet(projects, images, videos)}
     </section>"""
     feat = next((p for p in projects if p.get("status") != "draft"), None)
     featured = ""
     if feat:
-        img = images.get((feat["slug"], feat.get("feature_image") or feat.get("cover")))
         url = f'projects/{feat["slug"]}/index.html'
-        pic = (f'<a class="feature__media" href="{url}" tabindex="-1" aria-hidden="true">'
-               f'{img.img("", FEATURE_SIZES, f"projects/{feat["slug"]}/")}</a>') if img else ""
+        live = scan_widget("") if feat["slug"] == SCAN_FILE.parent.name else ""
+        if not live:
+            img = images.get((feat["slug"], feat.get("feature_image") or feat.get("cover")))
+            live = (f'<a class="feature__media" href="{url}" tabindex="-1" aria-hidden="true">'
+                    f'{img.img("", FEATURE_SIZES, f"projects/{feat["slug"]}/")}</a>') if img else ""
         featured = f"""
     <section class="wrap feature">
-      <h2>Featured project</h2>
+      <h2>{esc(short(feat))}</h2>
       <div class="feature__panel">
-        {pic}
+        <div class="feature__live">{live}</div>
         <div class="feature__text">
           <p class="row__dates">{esc(feat.get("dates", ""))}</p>
-          <h3><a href="{url}">{esc(feat["title"])}</a></h3>
           <p>{esc(feat.get("summary", ""))}</p>
           <p>{esc(feat.get("result", ""))}</p>
           <div class="blocks">{block(url, "Read the project", "", "primary")}</div>
         </div>
       </div>
     </section>"""
-    rest = [p for p in projects if p is not feat]
-    listing = f'<div class="wrap listing">{project_list(rest, images, "", "h2")}</div>'
 
     # Each skill points at the projects that show it, so the claim and the evidence sit together.
     titles = {p["slug"]: p["title"] for p in projects if p.get("status") != "draft"}
@@ -305,7 +426,8 @@ def render_home(site: dict, projects: list, images: dict, about_img=None) -> str
 
     og = "assets/img/og.jpg" if (CONTENT / "images" / "og.jpg").exists() else ""
     return page(site, title=f'{site["name"]} | Mechanical Engineering', description=site.get("description", ""),
-                content=hero + featured + listing + skills, root="", current="home", og_image=og)
+                content=hero + featured + skills, root="", current="home", og_image=og,
+                scripts='<script src="assets/js/site.js" defer></script>')
 
 
 def render_projects_page(site: dict, projects: list, images: dict) -> str:
@@ -399,6 +521,8 @@ def render_project(site: dict, p: dict, images: dict, videos: dict, prev_p, next
                             sizes=COVER_SIZES, callouts=p.get("cover_callouts"), eager=True, cls="fig fig--cover")
 
     body = md.render(p["body"])
+    if "<p>[[scan]]</p>" in body:  # the interactive scan, placed in the write-up with a [[scan]] line
+        body = body.replace("<p>[[scan]]</p>", scan_widget("../../"))
 
     def body_fig(m):
         nonlocal num
@@ -435,14 +559,13 @@ def render_project(site: dict, p: dict, images: dict, videos: dict, prev_p, next
         gallery.append(figure(media, alt=g.get("alt", ""), caption=g.get("caption", ""), num=num, sizes=GALLERY_SIZES))
 
     def pager(q, label):
-        return (f'<a class="pager__link" href="../{q["slug"]}/index.html"><small>{label}</small>{esc(q["title"])}</a>'
+        return (f'<a class="pager__link" href="../{q["slug"]}/index.html"><small>{label}</small>{esc(short(q))}</a>'
                 if q else "<span></span>")
 
     content = f"""
     <article class="project">
       <header class="page-head"><div class="wrap">
-        <p class="crumbs"><a href="../index.html">Projects</a></p>
-        <h1>{esc(p["title"])}</h1>
+        <h1>{esc(short(p))}</h1>
         <p class="project__dek">{esc(p.get("summary", ""))}</p>
         <p class="project__meta">{esc(p.get("dates", ""))} {status}</p>
         {f'<div class="blocks">{links}</div>' if links else ""}
@@ -525,6 +648,17 @@ def build(include_drafts: bool = False, make_pdf: bool = False) -> None:
                 continue
             ps = images[(p["slug"], f"images/{poster}")]
             videos[(p["slug"], f"images/{n}")] = {"src": f"images/{n}", "poster": ps.rel, "w": ps.w, "h": ps.h}
+            small = p["dir"] / "sheet" / n  # optional low-resolution copy for the home contact sheet
+            if small.exists():
+                (dest.parent / "sheet").mkdir(exist_ok=True)
+                shutil.copy2(small, dest.parent / "sheet" / n)
+                videos[(p["slug"], f"images/{n}")]["sheet_src"] = f"sheet/{n}"
+                small_poster = small.with_suffix(".jpg")
+                if small_poster.exists():
+                    shutil.copy2(small_poster, dest.parent / "sheet" / small_poster.name)
+                    with Image.open(small_poster) as sp:
+                        videos[(p["slug"], f"images/{n}")].update(
+                            sheet_poster=f"sheet/{small_poster.name}", sheet_w=sp.width, sheet_h=sp.height)
         if p.get("cover") and (p["slug"], p["cover"]) not in images:
             warn(f'{p["slug"]}: cover "{p["cover"]}" not found')
 
@@ -539,7 +673,7 @@ def build(include_drafts: bool = False, make_pdf: bool = False) -> None:
     if pdf_src.exists():
         shutil.copy2(pdf_src, OUT / "resume" / PDF_NAME)
     pages = {
-        OUT / "index.html": render_home(site, projects, images, about_img),
+        OUT / "index.html": render_home(site, projects, images, videos),
         OUT / "projects" / "index.html": render_projects_page(site, projects, images),
         OUT / "resume" / "index.html": render_resume_page(site, resume, slugs, pdf_src.exists() or make_pdf),
         OUT / "about" / "index.html": render_about_page(site, about_img),

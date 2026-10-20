@@ -40,6 +40,14 @@ Sources: [BU College of Engineering, Key Factors of Engineering Portfolios](http
 - **Phone fixes.** Hover effects only apply with a mouse, taps give immediate feedback, and the blue tap flash is gone. Check these on your phone once the site is live.
 - **"Last updated" date** in the footer, so a reviewer can see the site is current.
 
+### Round 4 (October 20, 2026)
+- **Home page** is now a contact sheet: your name large, then every project's pictures in rows. Each new photo you add to a project's gallery can also go in its `sheet` list in `project.json` (up to five).
+- **ARC-001 scan.** The featured project and the ARC-001 page have a scan-angle slider over your real per-angle medians. Rerun `python scripts/export_scan.py` if the analysis changes.
+- **ARC-001 Background** now shows the ARC-000 radar sweep as Fig. 2, since that is where the project started.
+
+### Check this before you share the site (P1)
+- **Time-of-flight readings near the rotated box.** In the scan data (sweep direction 0), the time-of-flight medians at 144° to 148° are 841 to 956 mm while the object on the center line is 287 to 349 mm away. The write-up says the time-of-flight sensor "was not affected by any of these" (rotated, porous, cylinders). Either the claim needs a qualifier (for example, edge or mixed-return effects at the box's corner) or those angles have an explanation you know. Anyone who drags the slider there will see it. Fix the sentence in `arc-001-ultrasonic-vs-tof/writeup.md` under Results.
+
 ---
 
 ## The short list (do these in order)
