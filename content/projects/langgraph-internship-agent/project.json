@@ -1,0 +1,21 @@
+{
+  "title": "Internship Application Agent",
+  "summary": "A LangGraph agent that parses a job posting, researches the company and drafts tailored application material with a revision loop and human review.",
+  "status": "draft",
+  "featured": false,
+  "context": "Personal project",
+  "role": "Design & implementation",
+  "tools": [
+    "Python",
+    "LangGraph",
+    "Claude (Anthropic API)",
+    "Tavily"
+  ],
+  "cover": "",
+  "cover_alt": "",
+  "links": [],
+  "kind": "software",
+  "result": "LangGraph agent that parses a job posting, researches the company and drafts application material with a revision loop.",
+  "order": 9,
+  "dates": "Jun 2026"
+}

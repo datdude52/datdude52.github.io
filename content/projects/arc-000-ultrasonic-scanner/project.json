@@ -1,0 +1,49 @@
+{
+  "title": "ARC-000: Ultrasonic Sonar Scanner",
+  "summary": "I built a servo-swept ultrasonic scanner with an Arduino and 3D-printed mounting hardware, then worked through why its scans did not match the real scene.",
+  "result": "Traced false readings to off-axis echoes in the sensor's beam cone, which led directly to the ARC-001 sensor study.",
+  "dates": "Jun 2026",
+  "order": 3,
+  "kind": "hardware",
+  "status": "published",
+  "role": "Personal project",
+  "spec": [
+    [
+      "Problem",
+      "The scanner reported distances clustered within 0.3 cm of each other even when the objects in front of it were at different ranges."
+    ],
+    [
+      "Method",
+      "I isolated variables in sequence: tape-measure checks, higher-resolution readings, 5-ping averaging, and a minimal open-space test."
+    ],
+    [
+      "Result",
+      "I traced the fault to off-axis echoes within the sensor's ±15° beam cone and designed printed shrouds in multiple lengths to trade interference rejection against signal strength."
+    ],
+    [
+      "Tools",
+      "Arduino (C++), NewPing, HC-SR04, SG90 servo, Python, Processing, SolidWorks, Bambu FDM"
+    ]
+  ],
+  "cover": "images/cover.png",
+  "cover_alt": "Radar-style plot from the ultrasonic scanner showing broad arcs of returns.",
+  "cover_caption": "A sweep from the ultrasonic sensor. Objects appear as wide arcs instead of distinct shapes.",
+  "gallery": [
+    {
+      "src": "images/tof-comparison.png",
+      "alt": "Radar-style plot from a time-of-flight sensor showing distinct object outlines.",
+      "caption": "The same kind of sweep after switching to a time-of-flight sensor. The objects show up as separate outlines."
+    },
+    {
+      "src": "images/tof-scan-1.png",
+      "alt": "Radar-style time-of-flight sweep of objects on a desk.",
+      "caption": "Time-of-flight sweep of the desk scene."
+    },
+    {
+      "src": "images/tof-scan-2.png",
+      "alt": "Radar-style time-of-flight sweep with the objects rearranged.",
+      "caption": "A second time-of-flight sweep with the objects rearranged."
+    }
+  ],
+  "links": []
+}

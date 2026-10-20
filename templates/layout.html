@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <meta name="author" content="{{name}}">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#12284a">
+  {{robots}}
+  <meta property="og:type" content="{{og_type}}">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  {{social}}
+  <link rel="icon" href="{{root}}assets/favicon.svg" type="image/svg+xml">
+  {{preload}}
+  <link rel="stylesheet" href="{{root}}assets/css/fonts.css">
+  <link rel="stylesheet" href="{{root}}assets/css/style.css?v={{css_v}}">
+</head>
+<body class="{{body_class}}">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-head">
+    <div class="wrap site-head__inner">
+      <a class="site-head__name" href="{{root}}index.html">{{name}}</a>
+      <nav aria-label="Site"><ul class="nav">{{nav}}</ul></nav>
+    </div>
+  </header>
+  <main id="main">
+{{content}}
+  </main>
+  <footer class="site-foot">
+    <div class="wrap">
+      <p class="site-foot__lead">Thank you for visiting. I would be glad to hear from you.</p>
+      <div class="blocks">{{contact_blocks}}</div>
+      <p class="site-foot__meta">{{name}}, {{year}}. Last updated {{updated}}.</p>
+    </div>
+  </footer>
+</body>
+</html>

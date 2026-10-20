@@ -1,0 +1,29 @@
+{
+  "title": "Camera-Tracking Gimbal",
+  "summary": "I am designing a servo-driven gimbal that tracks objects using the on-sensor detection built into the Sony IMX500 AI camera.",
+  "result": "Servo-driven tracking gimbal using pretrained on-sensor detection, with servos sized at under 15% of rated torque.",
+  "dates": "In progress",
+  "order": 7,
+  "kind": "hardware",
+  "status": "draft",
+  "progress": "In progress",
+  "role": "Personal project",
+  "spec": [
+    [
+      "Design",
+      "Only the camera sits on the moving stage, and the base mounts to the desk, which keeps the MG90S servos under 15% of their rated torque."
+    ],
+    [
+      "Main risk",
+      "Routing the CSI ribbon cable through the rotation axes is the primary CAD and integration risk."
+    ],
+    [
+      "Tools",
+      "Raspberry Pi 5, Sony IMX500 AI Camera, Picamera2, MG90S servos, SolidWorks"
+    ]
+  ],
+  "cover": "",
+  "cover_alt": "",
+  "gallery": [],
+  "links": []
+}

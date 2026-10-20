@@ -1,0 +1,85 @@
+{
+  "title": "ARC-001: Ultrasonic vs. Time-of-Flight Sensor Characterization",
+  "summary": "I designed and ran a servo-swept test rig to measure exactly how an ultrasonic sensor and a time-of-flight sensor differ when they look at the same scene.",
+  "result": "Compared two rangefinders against a six-object ground-truth scene and measured a 4.0× difference in angular resolution across 9,720 logged readings.",
+  "dates": "Summer 2026 – Present",
+  "order": 1,
+  "kind": "hardware",
+  "status": "published",
+  "progress": "Report in progress",
+  "role": "Personal project: fixture design, firmware, test plan, data analysis",
+  "spec": [
+    [
+      "Problem",
+      "My first scanner (ARC-000) drew objects much wider than they were. I wanted to know why, and by how much, before choosing a sensor for future projects."
+    ],
+    [
+      "Method",
+      "A printed fixture holds both sensors on one servo so every sample is a paired measurement of the same scene. I measured six objects into coordinates and used a Python ray-cast model to generate the true range at every scan angle."
+    ],
+    [
+      "Testing",
+      "20 sweeps, a 14-station range ladder from 100 to 750 mm, a 13-gap resolution ladder at 300 mm, and 200-sample static holds."
+    ],
+    [
+      "Result",
+      "The time-of-flight sensor resolved two targets at 13.7° and the ultrasonic sensor needed 54.6°, a 4.0× difference."
+    ],
+    [
+      "Tools",
+      "Arduino (C++), Python, MATLAB, HC-SR04, VL53L1X, MG90S servo, I2C, SolidWorks, Bambu FDM"
+    ]
+  ],
+  "cover": "images/cover.jpg",
+  "cover_alt": "3D-printed fixture holding a VL53L1X time-of-flight board above an HC-SR04 ultrasonic sensor, mounted on a servo at the edge of a table marked with hand-drawn angle lines.",
+  "cover_caption": "The coaxial fixture. The time-of-flight sensor sits directly above the ultrasonic transducers so both sensors see the same scene at the same moment.",
+  "cover_callouts": [
+    {
+      "label": "VL53L1X time-of-flight, 940 nm",
+      "at": [
+        52,
+        30
+      ],
+      "label_at": [
+        104,
+        22
+      ]
+    },
+    {
+      "label": "HC-SR04 ultrasonic, 40 kHz",
+      "at": [
+        45,
+        39
+      ],
+      "label_at": [
+        104,
+        33
+      ]
+    },
+    {
+      "label": "Printed coaxial bracket",
+      "at": [
+        61,
+        45
+      ],
+      "label_at": [
+        104,
+        44
+      ]
+    },
+    {
+      "label": "MG90S servo, 0–180° sweep",
+      "at": [
+        48,
+        55
+      ],
+      "label_at": [
+        104,
+        56
+      ]
+    }
+  ],
+  "gallery": [],
+  "links": [],
+  "feature_image": "images/polar-overlay.png"
+}

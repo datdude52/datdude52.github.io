@@ -1,0 +1,44 @@
+{
+  "title": "Reverse-Engineered Honeywell Fan",
+  "summary": "I disassembled a commercial Honeywell fan, measured every part of the rotating system, and rebuilt it as a SolidWorks assembly with engineering drawings.",
+  "result": "Rebuilt the rotating system as a five-part SolidWorks assembly with roughly 130 features across the two most complex housings.",
+  "dates": "Fall 2024",
+  "order": 4,
+  "kind": "hardware",
+  "status": "published",
+  "role": "Individual project for MCEN 1025 CAD & Fabrication",
+  "spec": [
+    [
+      "Problem",
+      "Reconstruct a commercial product's mechanical design from the physical parts alone."
+    ],
+    [
+      "Method",
+      "I took the fan apart and captured dimensional data with calipers and angle finders, then modeled each part and assembled them with mates that match how the real parts fit together."
+    ],
+    [
+      "Result",
+      "A five-part assembly with roughly 130 features across the two most complex housings, plus drawings that document the mechanical architecture and assembly relationships."
+    ],
+    [
+      "Tools",
+      "SolidWorks, calipers, angle finders"
+    ]
+  ],
+  "cover": "images/cover.png",
+  "cover_alt": "Exploded SolidWorks render of the fan showing the front grille, blade, motor housing and base separated along the axis.",
+  "cover_caption": "Exploded view of the rebuilt assembly.",
+  "gallery": [
+    {
+      "src": "images/drawing.png",
+      "alt": "Engineering drawing sheet with front, side and section views of the fan housing and grille.",
+      "caption": "Drawing sheet for the front fan cover, with section and detail views, toleranced dimensions, and notes per ASME Y14.5."
+    },
+    {
+      "src": "images/rear-render.png",
+      "alt": "SolidWorks render of the assembled fan from the rear, showing the radial grille and stand.",
+      "caption": "The assembled model from the rear."
+    }
+  ],
+  "links": []
+}

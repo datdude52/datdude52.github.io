@@ -1,0 +1,98 @@
+{
+  "name": "Andrew J. Miller",
+  "description": "Andrew J. Miller is a Mechanical Engineering student at the University of Colorado Boulder. Projects in sensor testing, CAD, fabrication, and manufacturing.",
+  "base_url": "https://datdude52.github.io",
+  "home": {
+    "intro": [
+      "I am a Mechanical Engineering student at the University of Colorado Boulder with hands-on experience in manufacturing, fabrication, and testing.",
+      "I spent three summers as a manufacturing technician at Fiberlok Technologies and one as a fabrication intern at Hueber Industries, and I am currently a teaching assistant for CU Boulder's Engineering Projects course. I am looking for mechanical, manufacturing, and test engineering internships for Summer 2027."
+    ],
+    "facts": [
+      [
+        "Degree",
+        "B.S. Mechanical Engineering, minor in Business, expected May 2028"
+      ],
+      [
+        "Available",
+        "Summer 2027, May to August"
+      ],
+      [
+        "Based in",
+        "Boulder, Colorado"
+      ],
+      [
+        "Work authorization",
+        "U.S. citizen"
+      ]
+    ],
+    "skills": [
+      {
+        "skill": "CAD and drawings",
+        "detail": "SolidWorks (CSWA), sheet metal, assemblies, and engineering drawings.",
+        "projects": [
+          "honeywell-fan-reverse-engineering",
+          "bus-capacity-tracker"
+        ]
+      },
+      {
+        "skill": "Testing and data",
+        "detail": "Test plans, sensor characterization, ground-truth models, and analysis in Python and MATLAB.",
+        "projects": [
+          "arc-001-ultrasonic-vs-tof",
+          "arc-000-ultrasonic-scanner"
+        ]
+      },
+      {
+        "skill": "Fabrication",
+        "detail": "Machining and welding from drawings at Hueber Industries, sheet-metal housings, FDM printing, and woodworking.",
+        "projects": [
+          "bus-capacity-tracker",
+          "small-builds"
+        ]
+      },
+      {
+        "skill": "Electronics and code",
+        "detail": "Arduino (C++), Python, I2C and serial communication, and sensor integration.",
+        "projects": [
+          "arc-001-ultrasonic-vs-tof",
+          "internship-search-pipeline"
+        ]
+      }
+    ]
+  },
+  "about": {
+    "photo": "images/about.jpg",
+    "photo_alt": "Andrew Miller smiling in front of the Trevi Fountain in Rome",
+    "paragraphs": [
+      "I am a Mechanical Engineering student at the University of Colorado Boulder, pursuing a minor in Business through the Leeds School of Business. I am currently a teaching assistant for CU Boulder's Engineering Projects course and a member of the Formula SAE team, where I work on the electric-vehicle powertrain and chassis subsystems.",
+      "Most of what I know about building things started on the production floor. I spent three summers as a manufacturing technician at Fiberlok Technologies, where I ran the screens department on my own and helped improve my department's productivity by 30%. I also spent a summer as a fabrication intern at Hueber Industries, machining and welding metal structures from engineering drawings. That experience taught me to think about how a part will be made and assembled while I am still designing it.",
+      "Outside of coursework, I build projects that teach me something I did not know before, and I usually learn the most from testing a design and iterating on what the data shows. Across all of my coursework, professional experience, and projects, my primary goal is always to learn as much as I can and apply that knowledge in meaningful ways.",
+      "When I am not working on engineering projects, I enjoy woodworking, pottery, hiking, climbing, and nature photography."
+    ]
+  },
+  "email": "anmi6222@colorado.edu",
+  "links": [
+    {
+      "label": "Email",
+      "url": "mailto:anmi6222@colorado.edu"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/andrew-james-miller25/"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/datdude52"
+    }
+  ],
+  "fonts": [
+    {
+      "family": "IBM Plex Sans",
+      "axes": "ital,wght@0,400;0,600;1,400"
+    },
+    {
+      "family": "Carlito",
+      "axes": "ital,wght@0,400;0,700;1,400;1,700"
+    }
+  ]
+}

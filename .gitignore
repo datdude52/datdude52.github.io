@@ -1,0 +1,7 @@
+# Generated output — rebuilt by scripts/build.py (and by CI on deploy)
+site/
+__pycache__/
+*.pyc
+.env
+qa/
+.claude/

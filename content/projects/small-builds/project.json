@@ -1,0 +1,35 @@
+{
+  "title": "Desk and Magnetic Chess Set",
+  "summary": "Two personal builds: a wooden desk built from my own CAD drawings and a 3D-printed magnetic chess set modeled from scratch.",
+  "result": "Modeled every chess piece without reference models and embedded hand-placed neodymium magnets so the set holds even upside down.",
+  "dates": "Personal builds",
+  "order": 5,
+  "kind": "hardware",
+  "status": "published",
+  "role": "Personal projects",
+  "spec": [
+    [
+      "Desk",
+      "I built a wooden desk from CAD drawings I produced myself."
+    ],
+    [
+      "Chess set",
+      "I modeled every piece of a magnetic chess set from scratch without reference models, printed them in matte PLA, and embedded hand-placed neodymium magnets with adhesive."
+    ],
+    [
+      "Tools",
+      "SolidWorks, Bambu FDM, woodworking tools"
+    ]
+  ],
+  "cover": "images/cover.jpg",
+  "cover_alt": "Hand holding the magnetic chess board upside down with all of the printed pieces still attached.",
+  "cover_caption": "The chess board held upside down. The embedded magnets keep every piece in place.",
+  "gallery": [
+    {
+      "src": "images/desk-cad.png",
+      "alt": "SolidWorks model of a wooden desk with a cross-braced frame.",
+      "caption": "CAD model of the desk I built."
+    }
+  ],
+  "links": []
+}

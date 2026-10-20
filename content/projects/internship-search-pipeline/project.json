@@ -1,0 +1,32 @@
+{
+  "title": "Internship Search Automation Pipeline",
+  "summary": "I designed a pipeline that searches, filters, scores, and logs engineering internship postings from a single profile file.",
+  "result": "Narrowed 4,546 fetched postings to 14 relevant engineering internships with a deterministic Python search tool.",
+  "dates": "Sep 2026 – Present",
+  "order": 8,
+  "kind": "software",
+  "status": "published",
+  "role": "Personal project",
+  "spec": [
+    [
+      "Problem",
+      "Search engineering internship postings across many job boards from one profile instead of repeating the same manual searches."
+    ],
+    [
+      "Design",
+      "A single YAML profile holds my targets, experience, and standard form answers. A Python search tool pulls postings, filters them, and passes the best matches to an AI scoring step."
+    ],
+    [
+      "Result",
+      "Filtering narrowed 4,546 fetched postings to 14 relevant engineering internships."
+    ],
+    [
+      "Tools",
+      "Python, YAML, Notion, Claude (LLM-assisted development), Windows Task Scheduler"
+    ]
+  ],
+  "cover": "",
+  "cover_alt": "",
+  "gallery": [],
+  "links": []
+}

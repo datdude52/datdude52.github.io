@@ -1,0 +1,79 @@
+{
+  "title": "Bus Capacity Tracking System",
+  "summary": "As design and manufacturing lead, I helped build an Arduino-driven infrared sensing system that counts riders as they board and shows the bus's occupancy on a display.",
+  "result": "Reached 98% detection accuracy through structured verification testing, and won the section best project award.",
+  "dates": "Spring 2025",
+  "order": 2,
+  "kind": "hardware",
+  "status": "published",
+  "role": "Design and manufacturing lead on a team project for GEEN 1400 Engineering Projects",
+  "spec": [
+    [
+      "Problem",
+      "Track how full a bus is as riders board, and show the occupancy where people can see it."
+    ],
+    [
+      "Design",
+      "Infrared emitters and receivers at the door count riders, an Arduino-based transmitter tracks the total, and an LED display shows the current occupancy."
+    ],
+    [
+      "My role",
+      "I modeled the transmitter and display housings in SolidWorks Sheet Metal, made detailed drawings, and prepared manufacturable designs in CorelDRAW."
+    ],
+    [
+      "Result",
+      "98% detection accuracy, with detection error reduced below 2% through iterative electrical and mechanical design changes. Section best project award."
+    ],
+    [
+      "Tools",
+      "Arduino, IR sensors, SolidWorks Sheet Metal, CorelDRAW"
+    ]
+  ],
+  "cover": "images/cover.jpg",
+  "cover_alt": "Triangular brushed-aluminum display housing with a red LED matrix showing the rider count.",
+  "cover_caption": "The finished occupancy display in its sheet-metal housing.",
+  "gallery": [
+    {
+      "src": "images/transmitter.jpg",
+      "alt": "Aluminum transmitter housing with a clear acrylic lid and wiring visible inside.",
+      "caption": "Transmitter housing, bent from sheet metal with a clear lid for access to the electronics."
+    },
+    {
+      "src": "images/transmitter-electronics.jpg",
+      "alt": "Top view of the transmitter electronics inside an acrylic base, with an Arduino, perfboard, ribbon cable and antenna.",
+      "caption": "Transmitter electronics before the housing was closed."
+    },
+    {
+      "src": "images/emitters.jpg",
+      "alt": "Long sheet-metal enclosure holding the infrared emitters.",
+      "caption": "Infrared emitter housing that mounts at the door."
+    },
+    {
+      "src": "images/display-housing-cad.png",
+      "alt": "SolidWorks sheet-metal model of the triangular display housing.",
+      "caption": "SolidWorks Sheet Metal model of the display housing."
+    },
+    {
+      "src": "images/led-panel.jpg",
+      "alt": "Flexible LED matrix panel on a cutting mat.",
+      "caption": "The LED matrix panel before it went into the housing."
+    },
+    {
+      "src": "images/transmitter-schematic.png",
+      "alt": "Fritzing schematic of the transmitter circuit with an Arduino Uno, infrared emitters, and an nRF24L01+ radio module.",
+      "caption": "Transmitter circuit schematic."
+    },
+    {
+      "src": "images/display-top.jpg",
+      "alt": "Top view of the triangular display housing.",
+      "caption": "Top view of the display housing."
+    },
+    {
+      "src": "images/display-demo.mp4",
+      "poster": "images/display-demo.jpg",
+      "alt": "Video of the display counting riders during testing.",
+      "caption": "The display updating the count during testing."
+    }
+  ],
+  "links": []
+}

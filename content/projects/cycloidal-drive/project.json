@@ -1,0 +1,21 @@
+{
+  "title": "Two-Stage Cycloidal Drive",
+  "summary": "I am designing and building a two-stage cycloidal speed reducer in SolidWorks with FDM-printed components.",
+  "result": "Two-stage cycloidal speed reducer designed in SolidWorks with FDM-printed components.",
+  "dates": "In progress",
+  "order": 6,
+  "kind": "hardware",
+  "status": "draft",
+  "progress": "In progress",
+  "role": "Personal project",
+  "spec": [
+    [
+      "Tools",
+      "SolidWorks, Bambu FDM"
+    ]
+  ],
+  "cover": "",
+  "cover_alt": "",
+  "gallery": [],
+  "links": []
+}
