@@ -31,8 +31,8 @@ Open http://localhost:8000. Drop `--drafts` to see only what will go live.
 ```
 content/
   site.json          home intro, About page text and photo, contact links, fonts
-  resume.json        the on-page resume (mirrors the master resume; layout per Resume_Format_Guide)
-  resume/Andrew_Miller_Resume.pdf   printed from the resume page by --pdf
+  resume.json        the on-page resume (mirrors Andrew_Miller_Resume_General.docx, phone left off)
+  resume/Andrew_Miller_Resume_General.pdf   printed from the resume page by --pdf
   images/about.jpg   About page and home page photo
   projects/<slug>/
     project.json     title, summary, result line, dates, order, spec panel, cover, callouts, gallery, links
@@ -70,7 +70,7 @@ Callout coordinates are percentages of the image. Use `x = 104` to put the label
 
 ## Keeping the resume current
 
-1. Edit `content/resume.json`. Copy bullets from the master resume rather than rewriting them.
+1. Edit `content/resume.json`. Copy lines from `Personal Master/Application Materials/Resume/Andrew_Miller_Resume_General.docx` rather than rewriting them.
 2. Run `python scripts/build.py --pdf`. The PDF must stay at one page. If it spills over, trim in the order your format guide gives (Interests first, then lower-priority bullets).
 3. Run `python scripts/check_site.py`.
 

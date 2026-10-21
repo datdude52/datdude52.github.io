@@ -35,7 +35,7 @@ ROOT = Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "content"
 OUT = ROOT / "site"
 TEMPLATE = (ROOT / "templates" / "layout.html").read_text(encoding="utf-8")
-PDF_NAME = "Andrew_Miller_Resume.pdf"
+PDF_NAME = "Andrew_Miller_Resume_General.pdf"  # matches the Word file it mirrors
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 VIDEO_EXTS = {".mp4", ".webm"}
@@ -442,16 +442,23 @@ def render_projects_page(site: dict, projects: list, images: dict) -> str:
 
 
 def render_resume_page(site: dict, resume: dict, project_slugs: set, has_pdf: bool) -> str:
+    def detail(d):
+        # A detail line is one [label, value] pair, or a list of pairs set on one line ("GPA: … | Certifications: …").
+        pairs = d if isinstance(d[0], list) else [d]
+        return '<p class="cv-detail">' + "&nbsp;&nbsp; | &nbsp;&nbsp;".join(
+            f'{f"<strong>{esc(k)}:</strong> " if k else ""}{esc(v)}' for k, v in pairs) + "</p>"
+
     def entry(e):
         l1, l2 = e.get("line1", ["", ""]), e.get("line2")
         name = esc(l1[0])
         if e.get("project") in project_slugs:
             name = f'<a href="../projects/{e["project"]}/index.html">{name}</a>'
-        ctx = f'<span class="cv-context"> | {esc(e["context"])}</span>' if e.get("context") else ""
-        parts = [f'<p class="cv-line1"><span><strong>{name}</strong>{ctx}</span><span>{esc(l1[1])}</span></p>']
+        # Andrew_Miller_Resume_General.docx sets each entry as: bold title – context, then the date in bold.
+        ctx = f'<span class="cv-context"> – {esc(e["context"])}</span>' if e.get("context") else ""
+        parts = [f'<p class="cv-line1"><span><strong>{name}</strong>{ctx}</span><strong>{esc(l1[1])}</strong></p>']
         if l2:
             parts.append(f'<p class="cv-line2"><span>{esc(l2[0])}</span><span>{esc(l2[1])}</span></p>')
-        parts += [f'<p class="cv-detail"><strong>{esc(k)}:</strong> {esc(v)}</p>' for k, v in e.get("details", [])]
+        parts += [detail(d) for d in e.get("details", [])]
         if e.get("bullets"):
             parts.append("<ul>" + "".join(f"<li>{esc(b)}</li>" for b in e["bullets"]) + "</ul>")
         return f'<div class="cv-entry">{"".join(parts)}</div>'
@@ -459,10 +466,9 @@ def render_resume_page(site: dict, resume: dict, project_slugs: set, has_pdf: bo
     sections = []
     for s in resume["sections"]:
         body = "".join(entry(e) for e in s.get("entries", []))
-        body += "".join(f'<p class="cv-detail">{f"<strong>{esc(k)}:</strong> " if k else ""}{esc(v)}</p>'
-                        for k, v in s.get("details", []))
+        body += "".join(detail(d) for d in s.get("details", []))
         sections.append(f'<section><h2 class="cv-heading">{esc(s["heading"])}</h2>{body}</section>')
-    contact = " | ".join(esc(c) for c in resume["contact"])
+    contact = "&nbsp; • &nbsp;".join(esc(c) for c in resume["contact"])
     actions = [block(PDF_NAME, "Download PDF", "", "primary", " download")] if has_pdf else []
     actions.append('<button class="block" type="button" onclick="window.print()">Print</button>')
     actions.append(block("mailto:" + site["email"], "Email me", "", ""))

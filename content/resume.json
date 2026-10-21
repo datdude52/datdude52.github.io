@@ -1,8 +1,8 @@
 {
-  "_note": "Web resume. Every bullet comes from Master_Resume_Andrew_Miller.docx (Oct 2026). Layout follows Resume_Format_Guide.docx. Phone number left off on purpose for the public site.",
+  "_note": "Web resume. Every line comes from Andrew_Miller_Resume_General.docx (Oct 2026), in Personal Master/Application Materials/Resume. Phone number left off on purpose for the public site.",
   "name": "Andrew J. Miller",
   "contact": [
-    "Boulder, CO",
+    "Boulder, Colorado",
     "anmi6222@colorado.edu",
     "linkedin.com/in/andrew-james-miller25"
   ],
@@ -11,108 +11,51 @@
       "heading": "Education",
       "entries": [
         {
-          "line1": [
-            "University of Colorado Boulder",
-            "Boulder, CO"
-          ],
-          "line2": [
-            "Bachelor of Science in Mechanical Engineering; Minor in Business (Leeds School of Business)",
-            "Expected May 2028"
-          ],
+          "line1": ["University of Colorado Boulder", "Expected May 2028"],
+          "context": "B.S. Mechanical Engineering, Business Minor",
           "details": [
-            [
-              "GPA",
-              "4.0/4.0 | Junior standing by credit hours"
-            ],
-            [
-              "Relevant Coursework",
-              "Mechanics of Solids, Data Analysis & Experimental Methods, Circuits & Electronics, CAD & Fabrication"
-            ]
+            [["GPA", "3.9/4.0"], ["Certifications", "CSWA; DeepLearning.AI: AI Agents in LangGraph, Prompt Engineering for Developers"]],
+            ["Relevant Coursework", "Experimental Methods, Circuits & Electronics, Computational Methods, Manufacturing Processes"]
           ]
         }
       ]
     },
     {
-      "heading": "Certifications",
-      "details": [
-        [
-          "Certified SolidWorks Associate (CSWA)",
-          "Dassault Systèmes, Dec 2024"
-        ],
-        [
-          "DeepLearning.AI",
-          "ChatGPT Prompt Engineering for Developers, Jun 2026; AI Agents in LangGraph, Jun 2026"
-        ]
-      ]
-    },
-    {
       "heading": "Technical Skills",
       "details": [
-        [
-          "CAD & Design",
-          "SolidWorks (CSWA), Sheet Metal, assemblies, engineering drawings, tolerancing, GD&T, DFM, reverse engineering"
-        ],
-        [
-          "Fabrication",
-          "Machining, welding, soldering, laser cutting, FDM 3D printing (Bambu Studio), mechanical assembly"
-        ],
-        [
-          "Testing & Data",
-          "Experiment design, sensor characterization and calibration, ground-truth modeling, V&V, root cause analysis"
-        ],
-        [
-          "Programming",
-          "MATLAB, Python, Arduino (C++), Processing, I2C and serial communication, LLM APIs, LangGraph"
-        ],
-        [
-          "Electronics",
-          "Embedded systems integration, ultrasonic / time-of-flight / IR sensors, servo control, electronics debugging"
-        ]
+        ["CAD & Design", "SolidWorks (CSWA), 3D modeling, assemblies, sheet metal, drawings, tolerancing, GD&T, DFM"],
+        ["Fabrication", "MIG welding, machining, soldering, laser cutting, FDM 3D printing (Bambu), assembly"],
+        ["Test & Analysis", "Test design, sensor calibration, NI DAQ/LabVIEW, multimeter, oscilloscope, root cause analysis"],
+        ["Programming", "MATLAB, Python, Arduino C++, embedded systems integration, quantitative data analysis"],
+        ["Artificial Intelligence", "Prompt engineering, multi-model workflows, LLM-assisted automation pipelines and test plans"]
       ]
     },
     {
-      "heading": "Experience",
+      "heading": "Professional Experience",
       "entries": [
         {
-          "line1": [
-            "University of Colorado Boulder, College of Engineering",
-            "Boulder, CO"
-          ],
-          "line2": [
-            "Teaching Assistant, Engineering Projects (GEEN 1400)",
-            "Jan 2026 – Present"
-          ],
+          "line1": ["Teaching Assistant, Engineering Projects (GEEN 1400)", "Jan 2026 – Present"],
+          "context": "CU Boulder",
           "bullets": [
-            "Mentor first-year engineering teams through the design, build, and test of projects that solve real-world problems by integrating mechanical and electrical systems",
-            "Debug student hardware and Arduino code in labs and office hours, coaching teams through structured troubleshooting of sensors, wiring, and firmware"
+            "Guide student teams through the design, prototyping, and debugging of Arduino-based electromechanical projects that address real-world problems",
+            "Plan and run lectures, labs, and workshops with faculty and fellow TAs, translating mechanical and electrical concepts for first-year engineers"
           ]
         },
         {
-          "line1": [
-            "Fiberlok Technologies",
-            "Fort Collins, CO"
-          ],
-          "line2": [
-            "Manufacturing Technician",
-            "Summers 2023 – 2025"
-          ],
+          "line1": ["Manufacturing Technician", "May – Aug 2023, 2024, 2025"],
+          "context": "Fiberlok Technologies, Fort Collins, CO",
           "bullets": [
-            "Improved department process efficiency and productivity by 30% through standardized procedures, workflow optimization, and waste reduction; improvement was adopted into formal training",
-            "Operated the screens department solo, running photopolymer screen equipment from chemical mixing through photopolymerization"
+            "Increased screens-department throughput 30% by overlapping emulsion coating with exposure and shortening dehaze and degrease cycles; method adopted into formal training",
+            "Operated the screens department solo by the third summer, running a 6-step photopolymer process including per-job exposure settings and light-table inspection/QC",
+            "Traced recurring print pinhole defects to residual emulsion, screen contamination, or hardened squeegee adhesive"
           ]
         },
         {
-          "line1": [
-            "Hueber Industries",
-            "Fort Collins, CO"
-          ],
-          "line2": [
-            "Fabrication Intern",
-            "Jun 2024 – Aug 2024"
-          ],
+          "line1": ["Fabrication Intern", "Jun – Aug 2024"],
+          "context": "Hueber Industries, Fort Collins, CO",
           "bullets": [
-            "Fabricated metal structures from engineering drawings using machining and welding, holding tight tolerances for dimensional accuracy and build quality",
-            "Resolved a 250 lb railing installation failure through field diagnosis and shop rework"
+            "Fabricated and installed functional and decorative metal structures, developing skills in welding, cutting, and forming while translating engineering drawings into builds held to 1/16 in tolerance",
+            "Resolved a 250 lb railing installation failure by tracing it to assumed, inconsistent stair spacing, then re-measuring on site and reworking the railing in the shop"
           ]
         }
       ]
@@ -121,51 +64,24 @@
       "heading": "Projects",
       "entries": [
         {
-          "line1": [
-            "ARC-001: Ultrasonic vs. Time-of-Flight Sensor Characterization",
-            "Summer 2026 – Present"
-          ],
+          "line1": ["ARC-001 Ultrasonic vs. Time-of-Flight Sensor Characterization", "2026"],
           "context": "Personal Project",
           "project": "arc-001-ultrasonic-vs-tof",
           "bullets": [
-            "Designed and ran a servo-swept test rig comparing an HC-SR04 ultrasonic sensor and a VL53L1X time-of-flight (ToF) sensor against a six-object ground-truth scene of flat, rotated, metallic, and porous targets",
-            "Quantified a 4.0× angular resolution advantage for the ToF sensor (13.7° vs. 54.6°) on a 13-gap resolution ladder at 300 mm",
-            "Found and corrected 12 firmware and pipeline defects before final collection, then logged 9,720 rows across 20 sweeps with 0 rejected"
+            "Measured a 4x angular resolution advantage for VL53L1X time-of-flight over HC-SR04 ultrasonic across a six-target scene, tracing large ultrasonic errors to beam geometry, target orientation, and porosity",
+            "Designed and FDM-printed a dual-sensor bracket in SolidWorks that stacked both sensors on one servo pan platform, pairing every reading of the same scene at the same instant",
+            "Calibrated the rig as an instrument before data collection, deriving per-direction servo offsets from 1.43° measured backlash and scale corrections from a 14-station range ladder",
+            "Developed the Python capture pipeline with an LLM under direct review, verifying its output and correcting 12 firmware and pipeline defects, including a silent 38 mm sensor offset"
           ]
         },
         {
-          "line1": [
-            "Bus Capacity Tracking System",
-            "Spring 2025"
-          ],
-          "context": "CU Boulder, GEEN 1400 Engineering Projects",
+          "line1": ["Bus Capacity Tracking System", "Spring 2025"],
+          "context": "CU Boulder, GEEN 1400",
           "project": "bus-capacity-tracker",
           "bullets": [
-            "Served as design and manufacturing lead for an Arduino-driven IR sensing system that tracked and displayed bus occupancy",
-            "Reached 98% detection accuracy, reducing detection error below 2% through structured verification testing and iterative electrical and mechanical design changes",
-            "Won the section best project award from department leaders"
-          ]
-        },
-        {
-          "line1": [
-            "Reverse-Engineered Honeywell Fan",
-            "Fall 2024"
-          ],
-          "context": "CU Boulder, MCEN 1025 CAD & Fabrication",
-          "project": "honeywell-fan-reverse-engineering",
-          "bullets": [
-            "Rebuilt the rotating system as a five-part SolidWorks assembly with roughly 130 features across the two most complex housings, emphasizing dimensional accuracy and tolerance awareness"
-          ]
-        },
-        {
-          "line1": [
-            "Internship Search Automation Pipeline",
-            "Sep 2026 – Present"
-          ],
-          "context": "Personal Project",
-          "project": "internship-search-pipeline",
-          "bullets": [
-            "Built a deterministic Python search tool with adapters for nine job-board platforms and narrowed 4,546 fetched postings to 14 relevant engineering internships"
+            "Led design and manufacturing of an Arduino-driven IR system that tracked and displayed bus occupancy; won section best project award",
+            "Modeled transmitter and display housings in SolidWorks Sheet Metal with detailed drawings, and prepared manufacturable layouts in CorelDRAW",
+            "Reached 98% detection accuracy through structured validation testing and iterative electrical and mechanical redesign"
           ]
         }
       ]
@@ -174,16 +90,11 @@
       "heading": "Engineering Teams & Activities",
       "entries": [
         {
-          "line1": [
-            "Formula SAE (FSAE) CU Boulder Racing Team",
-            "Boulder, CO"
-          ],
-          "line2": [
-            "Team Member, EV Powertrain & Chassis Subsystems",
-            "Sep 2026 – Present"
-          ],
+          "line1": ["Team Member, EV Powertrain & Chassis", "Sep 2026 – Present"],
+          "context": "Formula SAE CU Boulder Racing Team",
           "bullets": [
-            "Contributing to the electric-vehicle powertrain and chassis subsystems of the team's Formula SAE competition car"
+            "Lathed two aluminum bolt adapters from engineering drawings and mounted damper linear potentiometers on the IC car, feeding suspension displacement to the data logger",
+            "Assigned design of the regenerative brake pedal; currently in preliminary design"
           ]
         }
       ]

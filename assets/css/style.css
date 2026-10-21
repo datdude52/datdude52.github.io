@@ -345,7 +345,8 @@ a { color: var(--blue); text-decoration-thickness: 1px; text-underline-offset: 0
 .cv-line1, .cv-line2 { display: flex; justify-content: space-between; gap: 1rem; }
 .cv-line1 > span:last-child, .cv-line2 > span:last-child { white-space: nowrap; flex-shrink: 0; }
 .cv-line1 strong { font-weight: 700; }
-.cv-context { font-style: italic; }
+.cv-line1 > strong { white-space: nowrap; flex-shrink: 0; }
+.cv-context { font-style: normal; }
 .cv-line2 { font-style: italic; }
 .cv-detail { margin-bottom: 0.5pt; }
 .cv-detail strong { font-weight: 700; }

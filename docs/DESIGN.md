@@ -30,9 +30,9 @@ Distinctiveness comes from real engineering evidence: photos of hardware, plots 
 | Motion | Three moves, all CSS keyframes on load, so nothing depends on a script and everything ends visible: the contact-sheet frames rise in with a 35ms stagger; on project pages the cover opens like a shutter (clip-path, 1.1s) while the photo settles from 1.12 scale, and the header, spec rows, list rows, and About text rise in reading order. Press feedback is `scale(0.97)` at 140ms. Reduced motion keeps short fades and drops all travel, scale, and the shutter. Curves: `--ease-out` (0.23, 1, 0.32, 1), `--ease-in-out` (0.77, 0, 0.175, 1). |
 | Lessons | Optional `lessons` in `project.json` renders as "What I learned" at the end of the write-up. It must be Andrew's own words; never draft it for him. |
 | Touch | Every `:hover` rule sits inside `@media (hover: hover) and (pointer: fine)`. Touch gets `:active` feedback, no tap highlight, and `touch-action: manipulation`. |
-| Resume | Rendered on the page as a letter-size sheet that follows `Resume_Format_Guide.docx`. The PDF is printed from that same page, so the two always match. |
+| Resume | Rendered on the page as a letter-size sheet that mirrors `Andrew_Miller_Resume_General.docx` (content and layout: bold title – context, bold date at the right), without the phone number. The PDF is printed from that same page, so the two always match. |
 | Voice | Andrew's voice from his cover-letter style guide: complete first-person sentences, direct, active, factual, "hands-on" and iterative-testing language, a genuine learning orientation. No taglines, no hype, no bolded numbers. |
-| Facts | Every number traces to `Master_Resume_Andrew_Miller.docx` or the project's data. Never invent motivation or results. |
+| Facts | Every number traces to `Andrew_Miller_Resume_General.docx`, `Master_Resume_Andrew_Miller.docx`, or the project's data; where they differ, the general resume wins on the site. Never invent motivation or results. |
 
 ## Avoid (AI-template tells)
 
